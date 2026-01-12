@@ -5,8 +5,6 @@ export default defineConfig({
   base: "/School-Management-System/",
   plugins: [react()],
   build: {
-    outDir: "dist",
-    sourcemap: false,
-    minify: "esbuild"
+    outDir: "dist"
   }
 });
