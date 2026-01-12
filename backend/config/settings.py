@@ -148,17 +148,29 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
-
-STATIC_URL = 'static/'
 import os
-ALLOWED_HOSTS=os.getenv("DJANGO_ALLOWED_HOSTS","localhost,127.0.0.1").split(",")
 
-CORS_ALLOWED_ORIGINS=os.getenv("CORS_ALLOWED_ORIGINS","http://localhost").split(",")
-CORS_ALLOW_CREDENTIALS=True
-STATIC_URL="/static/"
-STATIC_ROOT=os.path.join(BASE_DIR,"staticfiles")
-MEDIA_URL="/media/"
-MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "localhost,127.0.0.1"
+).split(",")
+ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
+
+CORS_ALLOWED_ORIGINS = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "http://localhost"
+).split(",")
+CORS_ALLOWED_ORIGINS = [o.strip() for o in CORS_ALLOWED_ORIGINS if o.strip()]
+
+CORS_ALLOW_CREDENTIALS = True
+
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Database Configuration
 DB_NAME=os.getenv("DB_NAME")
