@@ -19,7 +19,7 @@ export default function Login({ onLoginSuccess }) {
           body: JSON.stringify({ username, password }),
         });
       } catch (networkErr) {
-        // More helpful error for network/CORS failures
+
         if (!navigator.onLine) throw new Error("Network offline. Check your connection.");
         throw new Error("Network error: failed to reach backend. Check backend is running and CORS settings.");
       }
