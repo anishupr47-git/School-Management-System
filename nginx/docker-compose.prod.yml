@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  db:
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data:Z
+    environment:
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=en_US.UTF-8 -c shared_buffers=256MB -c effective_cache_size=1GB"
+
+  backend:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    environment:
+      DEBUG: 'False'
+      SECURE_SSL_REDIRECT: 'True'
+      SESSION_COOKIE_SECURE: 'True'
+      CSRF_COOKIE_SECURE: 'True'
+
+  frontend:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+
+  nginx:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
